@@ -2,7 +2,7 @@
 
 <p> <b>Inventory management </b> It's Java web application that i decide to build to grow up my skills as Java full
   stack developer</p>
-<p> The app provide more functionality sush as :
+<p> The app provide more functionality sush as : </p>
 <ul>
   <li>Create user</li>
   <li>Update user access role (ADMIN, MANAGER, CUSTOMER)</li>
@@ -26,7 +26,7 @@
   <li>Product, customer, supplier list</li>
 </ul>
 
-</p>
+
 <h2>Technology and tools using</h2>
 <ul>
   <li>Java 17 base Language</li>
