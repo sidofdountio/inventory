@@ -6,18 +6,17 @@ package com.sidof.model;
  * @Version v1.0
  */
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import static jakarta.persistence.GenerationType.AUTO;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 /**
@@ -50,14 +49,14 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
  * </ul>
  */
 
-@Data @NoArgsConstructor @AllArgsConstructor @Entity
+@Data @NoArgsConstructor @AllArgsConstructor @Entity @Builder
 public class Inventory {
     @Id @SequenceGenerator(name = "sequence_id_inventory",allocationSize = 1,sequenceName = "sequence_id_inventory") @GeneratedValue(strategy = SEQUENCE,generator = "sequence_id_inventory")
     private Long id;
-    private LocalDate date;
+    private LocalDateTime date;
     private String label;
     private String productName;
-    private boolean isUp;
+    private boolean up;
     private int orldQuantity;
     private double orldPrice;
     private double oldAmount;

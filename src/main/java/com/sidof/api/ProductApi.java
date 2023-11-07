@@ -27,15 +27,24 @@ public class ProductApi {
     private final ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>>getProduct(){
+    public ResponseEntity<List<Product>>getProducts(){
         final List<Product> products = productService.getProducts();
+        return new ResponseEntity<>(products, OK);
+    }
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product>getProduct(@PathVariable("id")Long id){
+        final Product products = productService.getProductById(id);
         return new ResponseEntity<>(products, OK);
     }
 
     @PostMapping("/addProduct")
     public ResponseEntity<Product>saveProduct(@RequestBody Product productToSave){
-        productToSave.setCode(String.valueOf(UUID.randomUUID()));
+        productToSave.setCode(String.valueOf(Math.random()));
         final Product product = productService.addProduct(productToSave);
         return new ResponseEntity<>(product, CREATED);
+    }
+        @PutMapping("/editProduct")
+    public ResponseEntity<Product>editeProduct(@RequestBody Product productToEdite){
+        return new ResponseEntity<>(productService.updateProduct(productToEdite), CREATED);
     }
 }

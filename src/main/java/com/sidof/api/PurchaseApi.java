@@ -27,11 +27,13 @@ import static java.time.LocalDate.*;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
-@RestController @RequestMapping("/api/v1/inventory") @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600) @RequiredArgsConstructor @Transactional
+@RestController @RequestMapping("/api/v1/inventory") @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@RequiredArgsConstructor @Transactional
 public class PurchaseApi {
     private final PurchaseService purchaseService;
     private final InventoryService inventoryService;
     private final ProductService productService;
+    private final InventoryOperation inventoryOperation;
 
 
     @GetMapping("/purchases")
@@ -40,7 +42,6 @@ public class PurchaseApi {
         return new ResponseEntity<>(purchases, OK);
     }
 
-    @Transactional
     @PostMapping("/addPurchase")
     public ResponseEntity<Purchase>saveProduct(@RequestBody Purchase purchaseToSave){
         final List<Inventory> inventoryList = inventoryService.INVENTORIES();
@@ -53,7 +54,6 @@ public class PurchaseApi {
         purchaseToSave.setAmount(amount);
 //        TODO:check arrived date and the status.
         final Purchase purchase = purchaseService.addPurchase(purchaseToSave);
-        InventoryOperation inventoryOperation = new InventoryOperation(productService);
         final Inventory inventorySave = inventoryOperation.cmupForPurchase("Purchase", purchase,inventoryList);
         inventoryService.addInventory(inventorySave);
         return new ResponseEntity<>(purchase, CREATED);

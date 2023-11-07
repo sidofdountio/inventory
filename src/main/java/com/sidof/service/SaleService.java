@@ -23,8 +23,9 @@ public class SaleService implements SaleDao {
     private final SaleRepo saleRepo;
 
     @Override
-    public Sale addSale(Sale sale) {
-        return saleRepo.save(sale);
+    public List<Sale> addSale(List<Sale> sale) {
+        log.info("Saved sale {}",sale);
+        return saleRepo.saveAll(sale);
     }
 
     @Override
@@ -34,7 +35,9 @@ public class SaleService implements SaleDao {
 
     @Override
     public Sale getSale(Long saleId) {
-        return saleRepo.findById(saleId).get();
+        log.info("Fetching sale by id {} ",saleId);
+        return saleRepo.findById(saleId)
+                .orElseThrow(() -> new NullPointerException(String.format( "Sale with %d not found",saleId)));
     }
 
     @Override
@@ -44,6 +47,7 @@ public class SaleService implements SaleDao {
 
     @Override
     public List<Sale> SALES() {
+        log.info("Fetching sales");
         return saleRepo.findAll();
     }
 }

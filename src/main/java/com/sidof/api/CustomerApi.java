@@ -36,6 +36,7 @@ public class CustomerApi {
 
     @PostMapping("/addCustomer")
     public ResponseEntity<Customer>saveProduct(@RequestBody Customer customerToSave){
+
         final Customer customer = customerService.addCustomer(customerToSave);
         return new ResponseEntity<>(customer, CREATED);
     }

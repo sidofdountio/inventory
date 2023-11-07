@@ -12,7 +12,7 @@
   <li>Purcharse new product when the quantity it's down</li>
   <li>Order product</li>
   <li> Be notice whent quantity of some product it's down</li>
-  <li>Purchase product using ABC method <a href="https://www.investopedia.com/terms/a/abc.asp" target="_blank" rel="noopener noreferrer">ABC</a> </li>
+  <li>Purchase product using CMUP (Cout Moyen Unitaire Pondere) method <a href="">CMUP</a> </li>
   <li>Analysis tool to view :
     <ol>
       <li>Daly sale</li>

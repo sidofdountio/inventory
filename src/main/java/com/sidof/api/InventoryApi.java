@@ -19,10 +19,13 @@ import static org.springframework.http.HttpStatus.*;
  * @Version v1.0
  */
 @RestController
-@RequestMapping("/api/v1/inventory") @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600) @RequiredArgsConstructor
+@RequestMapping("/api/v1/inventory")
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@RequiredArgsConstructor
 @Slf4j
 public class InventoryApi {
     private final InventoryService inventoryService;
+
 
     @GetMapping("/inventories")
     public ResponseEntity<List<Inventory>>getInventory(){
@@ -32,13 +35,13 @@ public class InventoryApi {
 
     @PostMapping("/inventory/addInventory")
     public ResponseEntity<Inventory>saveInventory(@RequestBody Inventory inventoryTosave){
-        final Inventory inventory = inventoryService.addInventory(inventoryTosave);
+        var inventory = inventoryService.addInventory(inventoryTosave);
         return new ResponseEntity<>( inventory,CREATED);
     }
-    
+
     @PutMapping("/inventory/updateInventory")
     public ResponseEntity<Inventory>UpdateInventory(@RequestBody Inventory inventoryToEdit){
-        final Inventory inventory = inventoryService.addInventory(inventoryToEdit);
+        var inventory = inventoryService.addInventory(inventoryToEdit);
         return new ResponseEntity<>( inventory,CREATED);
     }
 }
