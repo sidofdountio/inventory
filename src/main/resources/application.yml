@@ -26,3 +26,6 @@ spring:
     image: images/
   main:
     web-application-type: servlet
+application:
+  title: Inventory management(CMUP)
+  version: v1

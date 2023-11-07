@@ -23,7 +23,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 public class Purchase {
     @Id @SequenceGenerator(name = "sequence_id_purchase",allocationSize = 1,sequenceName = "sequence_id_purchase") @GeneratedValue(strategy = SEQUENCE,generator = "sequence_id_purchase")
     private Long id;
-    @ManyToOne @JoinColumn(name = "supplier_id",referencedColumnName = "id")
+    @ManyToOne @JoinColumn(name = "supplier_id",referencedColumnName = "id" , foreignKey = @ForeignKey(name="sale_purchase"))
     private Supplier supplier;
     @ManyToOne @JoinColumn(name = "product_id",referencedColumnName = "id")
     private Product product ;

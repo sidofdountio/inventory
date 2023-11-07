@@ -34,5 +34,8 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Sale> sales = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private List<InvoiceSale> invoiceSales = new ArrayList<>();
 
 }

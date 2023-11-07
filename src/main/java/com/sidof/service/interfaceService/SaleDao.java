@@ -9,7 +9,7 @@ import java.util.List;
  * @Since 20/05/2023
  */
 public interface SaleDao {
-    Sale addSale(Sale sale);
+    List<Sale> addSale(List<Sale> sale);
     Sale updateSale(Sale sale);
     Sale getSale(Long saleId);
     void deleteSale(Long saleIdToDelete);

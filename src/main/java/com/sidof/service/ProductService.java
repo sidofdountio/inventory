@@ -26,13 +26,19 @@ public class ProductService implements ProductDao {
     @Override
     public Product updateProduct(Product product) {
         log.info("Updating new product {}", product);
+        boolean existProduct = existProduct(product.getId());
+        if (!existProduct){
+            log.error("Product {} not exist",product.getName());
+        }
         return productRepo.save(product);
     }
 
     @Override
     public Product getProductById(Long productId) {
-        log.info("Fecthing product by {}", productId);
-        return productRepo.findById(productId).get();
+        log.info("Fetching product by {}", productId);
+        return productRepo.findById(productId).orElseThrow(
+                ()->{ throw new IllegalStateException("Product not found."); }
+        );
     }
 
     public boolean existProduct(Long productId) {
@@ -51,7 +57,7 @@ public class ProductService implements ProductDao {
 
     @Override
     public List<Product> getProducts() {
-        log.info("Fecthing product");
+        log.info("Fetching product");
         return productRepo.findAll();
     }
 }

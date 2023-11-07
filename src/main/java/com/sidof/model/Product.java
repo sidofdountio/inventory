@@ -31,8 +31,8 @@ public class Product {
     @OneToMany(mappedBy = "product",cascade = ALL)
     private List<Purchase>purchases = new ArrayList<>();
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
-    private List<Sale>sales = new ArrayList<>();
+    @ManyToOne
+    private Sale sale;
     @OneToOne(mappedBy = "product")
     private Stock stock;
 }

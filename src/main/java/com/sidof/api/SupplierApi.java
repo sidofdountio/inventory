@@ -18,7 +18,9 @@ import static org.springframework.http.HttpStatus.*;
  * @Since 20/05/2023
  * @Version v1.0
  */
-@RestController @RequestMapping("/api/v1/inventory") @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600) @RequiredArgsConstructor @Slf4j
+@RestController @RequestMapping("/api/v1/inventory")
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@RequiredArgsConstructor @Slf4j
 public class SupplierApi {
     private final SupplierService supplierService;
 

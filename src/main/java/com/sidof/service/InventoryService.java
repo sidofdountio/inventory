@@ -20,8 +20,18 @@ import java.util.Optional;
 public class InventoryService implements InventoryDao {
     private final InventoryRepo inventoryRepo;
     @Override
-    public Inventory addInventory(Inventory inventoryToSave) {
-        return inventoryRepo.save(inventoryToSave);
+    public List<Inventory> addInventoryForSale(List<Inventory> inventoryToSave) {
+        log.info("inventory saved {}",inventoryToSave);
+        return inventoryRepo.saveAll(inventoryToSave);
+    }
+
+    /**
+     * @param inventory 
+     * @return
+     */
+    @Override
+    public Inventory addInventory(Inventory inventory) {
+        return inventoryRepo.save(inventory);
     }
 
     @Override
@@ -40,7 +50,7 @@ public class InventoryService implements InventoryDao {
 
     @Override
     public Optional<Inventory> INVENTORY_OPTIONAL(String productName, boolean isUp) {
-        Optional<Inventory> optionalInventory = inventoryRepo.findByProductNameAndIsUp(productName,isUp);
+        Optional<Inventory> optionalInventory = inventoryRepo.findByProductNameAndUp(productName,isUp);
         if(!optionalInventory.isPresent()){
             log.info("No up inventory with this {}",productName);
             throw new IllegalStateException("No up inventory with this "+productName);
@@ -53,5 +63,28 @@ public class InventoryService implements InventoryDao {
     public List<Inventory> INVENTORIES() {
         log.info("Fetching Inventory ...");
         return inventoryRepo.findAll();
+    }
+
+    @Override
+    public List<Inventory> listInventoryByName(String productName) {
+        return null;
+    }
+
+    @Override
+    public boolean inventoryByName(String productName) {
+        boolean present = inventoryRepo.findInventoryByProductName(productName).isPresent();
+        if (!present){
+            throw new IllegalStateException("Product bot exist");
+        }
+        return  present;
+    }
+
+    @Override
+    public Boolean inventoryById(Long productId) {
+        boolean existsById = inventoryRepo.existsById(productId);
+        if (!existsById){
+            throw new IllegalStateException("");
+        }
+        return existsById;
     }
 }

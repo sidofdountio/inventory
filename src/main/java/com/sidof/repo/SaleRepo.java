@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
  * @Author sidof
  * @Since 20/05/2023
  */
-@Repository
+
 public interface SaleRepo extends JpaRepository<Sale,Long> {
+
 }
