@@ -47,7 +47,7 @@ public class PurchaseApi {
         final List<Inventory> inventoryList = inventoryService.INVENTORIES();
 
         purchaseToSave.setOrderAt(now());
-        purchaseToSave.setStatus(COMPLETE);
+        purchaseToSave.setStatus(INPROGRESS);
         final int quantity = purchaseToSave.getQuantity();
         final double price = purchaseToSave.getPrice();
         final double amount =  (double) quantity * price;

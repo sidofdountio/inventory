@@ -13,7 +13,8 @@ import java.util.List;
 public interface InvoiceSaleDao {
     List<InvoiceSale> getInvoiceSales();
     List<InvoiceSale> getInvoicesSaleBySaleId(Long saleId);
-    List<InvoiceSale> getInvoicesSaleByCustormeId(Long custormeId);
+    InvoiceSale getInvoicesSaleByCustormeId(Long custormeId);
+    List<InvoiceSale> getInvoicesSaleByCustormeIds(Long custormeId);
     List<InvoiceSale> addInvoiceSale(List<InvoiceSale> invoiceSales);
 
 }

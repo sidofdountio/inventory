@@ -14,8 +14,10 @@ import java.util.List;
  */
 public interface InvoiceSaleRepo extends JpaRepository<InvoiceSale,Long> {
     @Override
-    @Query("SELECT i FROM InvoiceSale i  ORDER BY id")
+    @Query("SELECT i FROM InvoiceSale i  ORDER BY id ")
     List<InvoiceSale> findAll();
     List<InvoiceSale> findBySaleId(Long saleId);
-    List<InvoiceSale> findByCustomerId(Long customerId);
+    List<InvoiceSale> findAllByCustomerId(Long customerId);
+//    InvoiceSale findByCustomerId(Long customerId);
+//    List<InvoiceSale> findAllCustomerIdInvoiceSale();
 }

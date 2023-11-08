@@ -12,6 +12,6 @@ public interface CustomerDao {
     Customer addCustomer(Customer customer);
     Customer updateCustomer(Customer customer);
     Customer getCustomerById(Long customerId);
-    void DeleteCustomer(Long customerIdToDelete);
+    Boolean DeleteCustomer(Long customerIdToDelete);
     List<Customer>CUSTOMERS();
 }
