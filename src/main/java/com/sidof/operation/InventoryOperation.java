@@ -64,7 +64,7 @@ public class InventoryOperation {
 //        We check up product on our stock.
         final Long productId = purchase.getProduct().getId();
         if (!productService.existProduct(productId)) {
-            log.error("The selected product was not found {}",productId);
+            log.error("The selected product was not found {}", productId);
             throw new IllegalStateException("error");
         }
 
@@ -96,8 +96,7 @@ public class InventoryOperation {
                 productById.setPrice(newPriceToAdd);
                 productService.updateProduct(productById);
 
-            }
-           else{
+            } else {
                 Inventory inventoryNew = new Inventory(
                         null, LocalDateTime.now(), label, productName, true,
                         quantity,
@@ -117,11 +116,9 @@ public class InventoryOperation {
 
     public List<Inventory> cmupForSale(String label, List<Sale> sales, List<Inventory> inventoryList) {
 
-        Inventory inventoryToAdd = new Inventory();
-        List<Inventory> inventoryToCpuSale = new ArrayList<>();
+        List<Inventory> inventoryToCMUSale = new ArrayList<>();
 //      Default values.
         final LocalDate date = now();
-
 //      Last calculed quantity in our stock.
         int newQuantity = 0;
 //      Get last pucharse price.
@@ -129,7 +126,6 @@ public class InventoryOperation {
         double oldPrice = 0;
         double newAmount = 0;
         double oldAmount = 0;
-
 //      SOME OPERATION (CMUP) Cout Moyen Unitaire Pondere.
         int quantity = 0;
         double amount = 0;
@@ -137,8 +133,7 @@ public class InventoryOperation {
 //      Quantity provider by user.
         int quantityProvideByUser = 0;
         Long productId = 0L;
-        String productName = null;
-
+        String productName = "";
 
 //      Ensure that with have alredy purchase.
         if (inventoryList.isEmpty()) {
@@ -147,18 +142,22 @@ public class InventoryOperation {
 
 //      Set Sale properties.
         for (Sale sale : sales) {
+
+            Inventory inventoryToAdd = new Inventory();
+
             quantityProvideByUser = sale.getQuantity();
             productId = sale.getProduct().getId();
             productName = sale.getProduct().getName();
 
             for (Inventory stockInventoty : inventoryList) {
+
 //            stock product.
                 if (stockInventoty.getNewQuantity() < quantityProvideByUser && stockInventoty.isUp()) {
                     throw new IllegalStateException("Quantity in store is less thant provider");
                 }
 
                 if (productName.equalsIgnoreCase(stockInventoty.getProductName()) && stockInventoty.isUp()) {
-                    //            we manage only product that is up.
+//                  We manage only product that is up.
                     oldPrice = stockInventoty.getOrldPrice();
                     newPrice = stockInventoty.getNewPrice();//ancien prix calcule apres achat.
                     oldAmount = quantityProvideByUser * newPrice; // prix calcule
@@ -178,19 +177,17 @@ public class InventoryOperation {
                     inventoryToAdd.setProductName(productName);
                     inventoryToAdd.setDate(LocalDateTime.now());
                     inventoryToAdd.setUp(true);
-//
-                    stockInventoty.setUp(false);
-//                    Update change of inventory.
-                    inventoryService.updateInventory(stockInventoty);
 
-                    inventoryToCpuSale.add(inventoryToAdd);
-                    log.info("inventory {}", stockInventoty);
-//                log.error("You can't perform this action. please check thr product.")
+                    stockInventoty.setUp(false);
+//                    Update change of inventory after seller.
+                    inventoryService.updateInventory(stockInventoty);
+                    break;
                 }
             }
-
+//            Add to list CMUP
+            inventoryToCMUSale.add(inventoryToAdd);
         }
-        return inventoryToCpuSale;
+        return inventoryToCMUSale;
 
     }
 }

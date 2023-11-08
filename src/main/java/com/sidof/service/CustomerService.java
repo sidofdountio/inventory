@@ -3,7 +3,6 @@ package com.sidof.service;
 import com.sidof.model.Customer;
 import com.sidof.repo.CustomerRepo;
 import com.sidof.service.interfaceService.CustomerDao;
-import com.sidof.service.interfaceService.ProductDao;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +38,14 @@ public class CustomerService implements CustomerDao {
     }
 
     @Override
-    public void DeleteCustomer(Long customerIdToDelete) {
+    public Boolean DeleteCustomer(Long customerIdToDelete) {
+        Boolean isDeleted = true;
+        if (!customerRepo.existsById(customerIdToDelete)){
+            isDeleted = false;
+          throw new IllegalStateException(String.format("The provide customer %d not exist",customerIdToDelete));
+        }
         customerRepo.deleteById(customerIdToDelete);
+        return true;
     }
 
     @Override

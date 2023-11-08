@@ -48,8 +48,18 @@ public class InvoiceSaleService implements InvoiceSaleDao {
      * @return
      */
     @Override
-    public List<InvoiceSale> getInvoicesSaleByCustormeId(Long custormeId) {
+    public List<InvoiceSale> getInvoicesSaleByCustormeIds(Long custormeId) {
         log.info("Fetching invoice sale by {}",custormeId);
-        return invoiceSaleRepo.findByCustomerId(custormeId);
+        return invoiceSaleRepo.findAllByCustomerId(custormeId);
+    }
+
+    /**
+     * @param custormeId 
+     * @return
+     */
+    @Override
+    public InvoiceSale getInvoicesSaleByCustormeId(Long custormeId) {
+        log.info("Fetching invoice sale by {}",custormeId);
+        return null;
     }
 }

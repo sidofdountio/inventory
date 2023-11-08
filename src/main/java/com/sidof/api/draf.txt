@@ -1,38 +1,14 @@
 
-        for (Inventory inventoryToUpdate : inventoryList) {
-//            We check if the passed product exist.
-            if (productService.existProduct(productId)) {
-//                                    Sale operation.
-                newPrice = inventoryToUpdate.getNewPrice();
-                newQuantity = inventoryToUpdate.getNewQuantity();
-
-//                The old quantity school be gret thant the sale quantity.
-                if (newQuantity < quantityProvideByUser) {
-                    throw new IllegalStateException(String.format("We can't performe this action. " +
-                            "Please reduce the quantity. The stock quantity its less thant %s", sale.getQuantity()));
-                }
-//                We check if the passed product ist up the equals to the name in database.
-//                IsUp mean that we still have to perform some operation on that product line.
-                if (inventoryToUpdate.isUp() &&
-                        productName.equalsIgnoreCase(inventoryToUpdate.getProductName())) {
 
 
-//                    for oldPrice we passed the last newPrice.
+DEMO OF MY SECOND APPLICATION USING JAVA AND ANGULAR
 
-                    quantity = newQuantity - quantityProvideByUser;
-                    amount = inventoryToUpdate.getNewAmount() - inventoryToUpdate.getOldAmount();
-                    var inventory = Inventory.builder()
-                            .date(now())
-                            .label(label)
-                            .orldQuantity(quantityProvideByUser)
-                            .isUp(false)
-                            .orldPrice(newPrice)
-                            .oldAmount(sale.getQuantity() * newPrice)
-                            .newQuantity(quantity)
-                            .newPrice(newPrice)
-                            .newAmount(amount)
-                            .build();
-                    inventoryToAdd = inventory;
-                }
-            }
-        }
+APP NAME: INVENTORY MANAGEMENT
+
+STATE OF DEVELOPMENT: ACTUALLY IN DEVELOPMENT
+
+GIT HUB LINK: https://github.com/sidofdountio/inventory-ui-angular
+
+THANKS YOU FOR WATCHING
+
+I HAVE FORGOTTEN SOMETHING

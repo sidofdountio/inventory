@@ -2,7 +2,6 @@ package com.sidof.api;
 
 import com.sidof.model.InvoiceSale;
 import com.sidof.model.Response;
-import com.sidof.model.Sale;
 import com.sidof.service.InvoiceSaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -56,9 +55,15 @@ public class InvoiceApi {
         return new ResponseEntity<List<InvoiceSale>>(invoiceSaleBySaleId,OK);
     }
     @GetMapping("/invoice/{customerId}")
-    public ResponseEntity<List<InvoiceSale>> getInvoiceCustomerById(@PathVariable("customerId")Long customerId) throws InterruptedException {
-        final List<InvoiceSale> invoicesSaleByCustormeId = invoiceSaleService.getInvoicesSaleByCustormeId(customerId);
+    public ResponseEntity<List<InvoiceSale>> getInvoiceCustomerByIds(@PathVariable("customerId")Long customerId) throws InterruptedException {
+        final List<InvoiceSale> invoicesSaleByCustormeId = invoiceSaleService.getInvoicesSaleByCustormeIds(customerId);
         TimeUnit.SECONDS.sleep(1);
         return new ResponseEntity<List<InvoiceSale>>(invoicesSaleByCustormeId,OK);
     }
+//    @GetMapping("/invoice/customer/{customerId}")
+//    public ResponseEntity<InvoiceSale> getInvoiceCustomerById(@PathVariable("customerId")Long customerId) throws InterruptedException {
+//        final InvoiceSale invoicesSaleByCustormeId = invoiceSaleService.getInvoicesSaleByCustormeId(customerId);
+//        TimeUnit.SECONDS.sleep(1);
+//        return new ResponseEntity<InvoiceSale>(invoicesSaleByCustormeId,OK);
+//    }
 }

@@ -1,9 +1,7 @@
 package com.sidof.api;
 
 import com.sidof.model.Customer;
-import com.sidof.model.Product;
 import com.sidof.service.CustomerService;
-import com.sidof.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,15 +27,25 @@ public class CustomerApi {
     private final CustomerService customerService;
 
     @GetMapping("/customers")
-    public ResponseEntity<List<Customer>> getCustomers(){
+    public ResponseEntity<List<Customer>> getCustomers() {
         final List<Customer> customers = customerService.CUSTOMERS();
         return new ResponseEntity<>(customers, OK);
     }
 
     @PostMapping("/addCustomer")
-    public ResponseEntity<Customer>saveProduct(@RequestBody Customer customerToSave){
-
+    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customerToSave) {
         final Customer customer = customerService.addCustomer(customerToSave);
         return new ResponseEntity<>(customer, CREATED);
+    }
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
+        final Customer customers = customerService.getCustomerById(id);
+        return new ResponseEntity<>(customers, OK);
+    }
+
+    @DeleteMapping("/customer/delete/{id}")
+    public ResponseEntity<Boolean> deleteCustomer(@PathVariable Long id) {
+        final Boolean isDeleted = customerService.DeleteCustomer(id);
+        return new ResponseEntity<>(isDeleted, OK);
     }
 }

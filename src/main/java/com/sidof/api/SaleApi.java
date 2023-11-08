@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 import static com.sidof.model.enumes.InvoiceStatus.PENDING;
 import static com.sidof.model.enumes.InvoiceType.SALE;
-import static com.sidof.model.enumes.Status.INPROGRESS;
 import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -79,32 +78,27 @@ public class SaleApi {
     @PostMapping("/addSale")
     public ResponseEntity<List<Sale>> addSale(@RequestBody List<Sale> saleToSave) throws InterruptedException {
         double total = 0;
-
+//      To add invoice ale Object
         List<InvoiceSale> invoiceSales = new ArrayList<>();
         final List<Inventory> inventoryList = inventoryService.INVENTORIES();
         final List<Inventory> cmupForSale = inventoryOperation.cmupForSale("Sale", saleToSave, inventoryList);
 
-//        if (cmupForSale == null) {
-//            throw new NullPointerException("error");
-//        }
-
-        for (Inventory inventory: cmupForSale) {
-            for (Sale sale: saleToSave) {
-                sale.setOrderAt(inventory.getDate());
-                sale.setPrice(inventory.getOrldPrice());
-                sale.setAmount(inventory.getOldAmount());
-                sale.setStatus(INPROGRESS);
-            }
+        if (cmupForSale == null) {
+            throw new NullPointerException("error");
         }
 
+
+        for (Sale sale : saleToSave) {
+            sale.setOrderAt(now());
+            System.out.println(sale);
+        }
 //        saved inventory.
-//        inventoryService.addInventoryForSale(cmupForSale);
+        inventoryService.addInventoryForSale(cmupForSale);
 //        saved sale
-//        final List<Sale> saleSaved = saleService.addSale(saleToSave);
-        final List<Sale> saleSaved = new ArrayList<>();
+        final List<Sale> saleSaved = saleService.addSale(saleToSave);
 
 //  Set invoice sale propeties.
-        for (Sale sale: saleSaved) {
+        for (Sale sale : saleSaved) {
             total += sale.getAmount();
             var invoiceSale = InvoiceSale.builder()
                     .sale(sale)
@@ -120,7 +114,7 @@ public class SaleApi {
             invoiceSales.add(invoiceSale);
         }
 //        saved invoice
-//        invoiceSaleService.addInvoiceSale(invoiceSales);
+        invoiceSaleService.addInvoiceSale(invoiceSales);
         TimeUnit.SECONDS.sleep(1);
         return new ResponseEntity<>(saleSaved, CREATED);
     }
