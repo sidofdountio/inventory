@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @Author sidof
@@ -19,8 +20,10 @@ import static org.springframework.http.HttpStatus.*;
  * @Version v1.0
  */
 @RestController @RequestMapping("/api/v1/inventory")
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
-@RequiredArgsConstructor @Slf4j
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*",allowedHeaders = "*", maxAge = 3600, methods ={
+        DELETE, GET, OPTIONS, POST, PUT
+})
 public class SupplierApi {
     private final SupplierService supplierService;
 
@@ -29,7 +32,7 @@ public class SupplierApi {
         final List<Supplier> suppliers = supplierService.SUPPLIERS()    ;
         return new ResponseEntity<>(suppliers, OK);
     }
-
+@CrossOrigin(methods = POST)
     @PostMapping("/addSupplier")
     public ResponseEntity<Supplier> addSupplier(@RequestBody Supplier supplierToVave){
         final Supplier supplier = supplierService.addSupplier(supplierToVave);

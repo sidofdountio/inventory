@@ -26,9 +26,14 @@ import static com.sidof.model.enumes.Status.*;
 import static java.time.LocalDate.*;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-@RestController @RequestMapping("/api/v1/inventory") @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
-@RequiredArgsConstructor @Transactional
+@RestController @RequestMapping("/api/v1/inventory")
+@RequiredArgsConstructor
+@Transactional
+@CrossOrigin(origins = "*",allowedHeaders = "*", maxAge = 3600, methods ={
+        DELETE, GET, OPTIONS, POST, PUT
+})
 public class PurchaseApi {
     private final PurchaseService purchaseService;
     private final InventoryService inventoryService;

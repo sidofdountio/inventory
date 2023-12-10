@@ -11,6 +11,8 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * @Author sidof
@@ -19,9 +21,10 @@ import static org.springframework.http.HttpStatus.OK;
  */
 @RestController
 @RequestMapping("/api/v1/inventory")
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "*",allowedHeaders = "*", maxAge = 3600, methods ={
+        DELETE, GET, OPTIONS, POST, PUT
+})
 @RequiredArgsConstructor
-@Slf4j
 public class CustomerApi {
 
     private final CustomerService customerService;

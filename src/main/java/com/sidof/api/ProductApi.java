@@ -20,7 +20,7 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestController
 @RequestMapping("/api/v1/inventory")
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "*",allowedHeaders = "*", maxAge = 3600)
 @RequiredArgsConstructor
 @Slf4j
 public class ProductApi {

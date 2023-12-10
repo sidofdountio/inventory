@@ -26,6 +26,7 @@ import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @Author sidof
@@ -34,9 +35,11 @@ import static org.springframework.http.HttpStatus.OK;
  */
 @RestController
 @RequestMapping("/api/v1/inventory")
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RequiredArgsConstructor
 @Transactional
+@CrossOrigin(origins = "*",allowedHeaders = "*", maxAge = 3600, methods ={
+        DELETE, GET, OPTIONS, POST, PUT
+})
 public class SaleApi {
     private final SaleService saleService;
     private final InventoryService inventoryService;
