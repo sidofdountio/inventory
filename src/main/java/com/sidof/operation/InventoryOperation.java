@@ -181,11 +181,12 @@ public class InventoryOperation {
                     stockInventoty.setUp(false);
 //                    Update change of inventory after seller.
                     inventoryService.updateInventory(stockInventoty);
+                    inventoryToCMUSale.add(inventoryToAdd);
                     break;
                 }
             }
 //            Add to list CMUP
-            inventoryToCMUSale.add(inventoryToAdd);
+
         }
         return inventoryToCMUSale;
 
